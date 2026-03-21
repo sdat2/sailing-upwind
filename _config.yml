@@ -12,7 +12,7 @@ markdown: kramdown
 kramdown:
   # Disable Kramdown's own math engine so that MathJax 3 (injected via
   # _includes/head_custom.html) processes $ and $$ delimiters directly.
-  math_engine: mathjax3
+  math_engine: none
 
 minima:
   skin: auto   # respects the visitor's light/dark OS preference
