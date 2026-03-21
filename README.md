@@ -5,7 +5,7 @@
 
 
 This article derives, from basic physics, the angle that maximises upwind
-progress — and shows that the answer can be pre-computed on shore.
+progress of an idealized dinghy.
 
 ## Why sailing upwind is counterintuitive
 
