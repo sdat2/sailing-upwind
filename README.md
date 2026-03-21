@@ -3,6 +3,19 @@
 [![CI](https://github.com/sdat2/sailing-upwind/actions/workflows/ci.yml/badge.svg)](https://github.com/sdat2/sailing-upwind/actions/workflows/ci.yml)
 [![Pages](https://github.com/sdat2/sailing-upwind/actions/workflows/pages.yml/badge.svg)](https://sdat2.github.io/sailing-upwind)
 
+<!-- MathJax 3: renders \[…\] display math (from kramdown) and $…$ inline math. -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
 
 This article derives, from basic physics, the angle that maximises upwind
 progress — and shows that the answer can be pre-computed on shore.
