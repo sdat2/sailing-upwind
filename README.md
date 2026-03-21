@@ -239,3 +239,18 @@ The physically valid root satisfies $0 < x < D_s$.
 Solving the cubic gives $x \approx 0.547$, so
 $\theta_\text{opt} = \arccos(0.547) \approx 56.8°$.
 Maximum upwind speed $u_\text{max} \approx 1.60\ \text{m/s} = 3.1\ \text{knots}$.
+
+## Bibliography
+
+- T. W. Körner (1996). *The Pleasures of Counting*. Cambridge University Press.
+  *(Inspiration for the dimensional-analysis approach.)*
+
+- V. Radhakrishnan (1997). From Square Sails to Wing Sails: The Physics of Sailing Craft.
+  *Current Science*, 73(6). *(Link no longer available.)*
+
+- B. D. Anderson (2008). The Physics of Sailing. *Physics Today*.
+  [Link](https://physicstoday.aip.org/features/the-physics-of-sailing)
+
+- J. Wolfe (2002). The physics of sailing. University of New South Wales.
+  [Link](https://newt.phys.unsw.edu.au/~jw/sailing.html)
+
