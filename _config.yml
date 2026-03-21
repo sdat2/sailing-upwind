@@ -10,9 +10,8 @@ theme: minima
 
 markdown: kramdown
 kramdown:
-  # Disable Kramdown's own math engine so that MathJax 3 (injected via
-  # _includes/head_custom.html) processes $ and $$ delimiters directly.
-  math_engine: none
+  # mathjax engine outputs \(...\) and \[...\] which MathJax 3 handles natively.
+  math_engine: mathjax
 
 minima:
   skin: auto   # respects the visitor's light/dark OS preference
