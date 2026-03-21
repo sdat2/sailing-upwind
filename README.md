@@ -28,32 +28,19 @@ Somewhere in between is an optimum.
 
 ## A note on the standard explanation
 
-Most introductions to sail aerodynamics invoke the **Bernoulli principle**:
-the sail is curved, air travelling over the longer outer face must cover more
-distance and therefore moves faster, and by Bernoulli's equation faster air
-means lower pressure, so the sail is sucked to windward.
-This story is usually illustrated with a diagram of two parcels of air that
-conveniently — and with no physical justification whatsoever — rejoin at the
-trailing edge at the same moment (the "equal transit time" fallacy).
+Most introductions invoke the **Bernoulli principle**: the curved sail forces
+air faster over its outer face, lowering pressure and sucking it to windward.
+This is usually illustrated with the "equal transit time" fallacy — two parcels
+of air that conveniently rejoin at the trailing edge simultaneously, with no
+physical justification.
 
-The equal-transit story is wrong even in a potential-flow idealisation, and
-sail aerodynamics is emphatically *not* a potential-flow problem: the wind is
-turbulent, the Reynolds numbers are large, and the boundary layers separate at
-the leading edge in anything but the lightest of airs.
-"Lift equals low pressure" is not false, but it is a *description of the
-outcome*, not an explanation of the mechanism — it tells you nothing about
-why the pressure difference exists, how large it will be, or how it changes
-with angle.
+The story is wrong. Sail aerodynamics is turbulent, high-Reynolds-number flow
+where boundary layers separate at the leading edge.
+"Lift equals low pressure" describes the outcome; it doesn't explain the mechanism.
 
-The model here deliberately avoids all of that.
-It uses nothing more than **Newton's three laws, a force diagram, and
-trigonometry**.
-The sail is treated as a simple momentum deflector: it changes the direction
-and speed of the air flowing past it, and by Newton's third law the air
-pushes back on the sail.
-That is enough to derive the optimum angle to a remarkable degree of
-precision, and every step of the argument can be checked by a student
-who has finished a first course in mechanics.
+This model uses only **Newton's three laws** and treats the sail as a momentum
+deflector — enough to derive the optimum angle precisely, requiring nothing beyond
+a high school physics and maths (this model was my IB Maths coursework in 2014).
 
 ---
 
@@ -109,31 +96,9 @@ A lower $D_s$ (slipperier sail) pushes the optimal angle further from the wind.*
 
 ---
 
-## Notes on the original coursework
-
-This model was originally derived as IB high-school coursework.
-Two errors crept in:
-
-**$(1-D_h)$ symbol error.** The symbolic formula at one point wrote
-$D_h\rho_w A_h$ instead of $(1-D_h)\rho_w A_h$ in the drag denominator.
-The numeric substitution correctly used $(1-0.9)$, so the published result of
-1.87 m/s is unaffected.
-This package uses the correct form throughout.
-
-**$A_h$ discrepancy.** The boat specification table gives
-$A_h = 0.0343\ \text{m}^2$ (width × draft = $1.43 \times 0.024$).
-The numeric formula used $0.0249\ \text{m}^2$ — a transcription error.
-Using 0.0249 reproduces the quoted 1.87 m/s; the geometrically-consistent
-0.0343 gives 1.60 m/s.
-Both are plausible for a Laser Pico in 8-knot wind.
-
-**The optimal-angle cubic is correct**, confirmed by numerical root-finding and
-exhaustive search over $\theta$.
-
----
-
 ## Python package
 
+The full source is on [GitHub](https://github.com/sdat2/sailing-upwind).
 All parameters live in [`config.yaml`](config.yaml).
 Change any value and re-run to see the effect immediately.
 
