@@ -46,7 +46,7 @@ a high school physics and maths (this model was my IB Maths coursework in 2014).
 
 ## The model
 
-The sail acts as a momentum deflector.
+The sail acts as a momentum deflector (following [Wolfe 2002](https://newt.phys.unsw.edu.au/~jw/sailing.html), who presents the idea diagrammatically; the algebraic development below is independent).
 In one second a column of air sweeps past the sail; the sail redirects and slows
 it.
 The net forward (propulsive) force is:
