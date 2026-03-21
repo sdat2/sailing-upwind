@@ -1,0 +1,40 @@
+title: "Sailing Upwind"
+description: >
+  Finding the optimal tacking angle — a simple physical model
+  originally derived as IB high-school coursework.
+author: sdat2
+url: "https://sdat2.github.io"
+baseurl: "/sailing-upwind"
+
+theme: minima
+
+markdown: kramdown
+kramdown:
+  # Disable Kramdown's own math engine so that MathJax 3 (injected via
+  # _includes/head_custom.html) processes $ and $$ delimiters directly.
+  math_engine: null
+
+minima:
+  skin: auto   # respects the visitor's light/dark OS preference
+
+# Apply layout to all markdown pages without requiring front matter in each file.
+# This means README.md is served cleanly on GitHub without a visible YAML block.
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+
+# Exclude source files from the built site
+exclude:
+  - "*.py"
+  - "*.txt"
+  - "*.yaml"
+  - "*.toml"
+  - "Gemfile*"
+  - sailing_upwind/
+  - tests/
+  - "*.egg-info"
+  - ".pytest_cache"
+  - "*.png"

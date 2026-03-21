@@ -1,0 +1,34 @@
+# Sailing upwind model configuration
+# Based on high-school coursework model (see coursework.txt)
+#
+# Physical parameters for a Laser Pico dinghy.
+# Change these to explore different boats / conditions.
+
+boat:
+  name: "Laser Pico"
+  mass_kg: 120.0          # boat + crew (kg)
+  sail_area_m2: 5.1       # a_s: projected sail area (m^2)
+  # A_h: frontal underwater area (m^2)
+  # The coursework table gives 0.0343 = width(1.43) x draft(0.024) = volume(0.12)/length(3.5).
+  # However the numeric formula in the coursework uses 0.0249 (origin unclear, possibly a typo).
+  # Use 0.0249 to reproduce the coursework's 1.87 ms-1 result; 0.0343 for the table-consistent value.
+  hull_area_m2: 0.0343    # table-consistent value (width x draft)
+
+wind:
+  speed_ms: 4.0           # v_s: true wind speed (m/s); 4 m/s ≈ 7.8 knots
+
+coefficients:
+  D_s: 0.895              # sail drag coefficient (fraction of wind speed retained
+                          # after passing over sail; measured 0.850-0.920, avg 0.895)
+  D_h: 0.9                # hull drag coefficient (fraction of water speed retained
+                          # after passing hull; assumed 0.9)
+
+fluid:
+  rho_air_kg_m3: 1.225    # density of air (kg/m^3) at sea level, 15°C
+  rho_water_kg_m3: 1000.0 # density of seawater (kg/m^3)
+
+plot:
+  theta_min_deg: 0.0      # start angle for sweep plot (degrees from wind)
+  theta_max_deg: 180.0    # end angle for sweep plot (degrees from wind)
+  n_points: 500           # resolution of sweep
+  output_file: "img/upwind_speed.png"
