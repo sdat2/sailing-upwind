@@ -36,4 +36,3 @@ exclude:
   - tests/
   - "*.egg-info"
   - ".pytest_cache"
-  - "*.png"
