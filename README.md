@@ -56,8 +56,10 @@ $$F_\text{sail} = \rho_a \, a_s \, v_s^2 \, |\sin\theta| \, (D_s - \cos\theta)$$
 where $D_s$ is the **sail drag coefficient** — the fraction of wind speed
 retained after passing over the sail, measured ≈ 0.895 on a Laser Pico with a
 handheld anemometer.
+This is the forward component only; the leeward push is cancelled by an
+infinite lateral resistance from the centreboard and drops out.
 
-The hull drag opposes motion:
+The hull drag opposes forward motion:
 
 $$F_\text{drag} = (1-D_h)\,\rho_w\,A_h\,v^2$$
 
@@ -155,7 +157,11 @@ tests/
 1. Close-hauled: the sail lies along the boat's central axis.
 2. No air resistance on the hull.
 3. Wind is a steady, uniform flow; speed does not vary with height.
-4. The centreboard provides infinite lateral resistance — no sideways drift.
+4. The centreboard provides **infinite lateral resistance** — no sideways drift
+   (leeway). Any leeward component of the sail force is instantly balanced by
+   an equal and opposite centreboard reaction, contributing nothing to the
+   boat's forward motion. Consequently only the **forward** component of sail
+   force needs to be balanced against hull drag.
 5. The sail is flat.
 6. The sail redirects all air that passes over it to the sail's own direction.
 7. The sail slows passing air by a uniform factor $D_s$ ($0 < D_s < 1$).
@@ -185,6 +191,13 @@ $$F_\text{sail} = \Upsilon(D_s - \cos\theta) = \rho_a \, a_s \, v_s^2 \, |\sin\t
 
 Positive only when $\theta > \arccos(D_s)$.
 For $D_s = 0.895$ this boundary is ≈ 26.5°.
+
+The incoming air also carries lateral momentum $\Upsilon\sin\theta$, so the
+sail pushes the boat leeward as well as forward.
+By assumption 4, the centreboard reacts with an equal and opposite force,
+preventing any sideways movement entirely.
+This lateral balance is automatically satisfied and plays no further role —
+only the forward equation of motion appears in Steps 3–4.
 
 ### Step 3 — Hull drag
 
