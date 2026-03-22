@@ -76,6 +76,13 @@ heading $\theta$.
 
 ## Results for the Laser Pico
 
+![Two-deflector geometry](img/geometry_two_deflector.svg)  ![Two-deflector force diagram](img/forces_two_deflector.svg)
+
+*Left: heading $\theta$ (grey) vs actual track $\theta+\alpha$ (green) at the optimal
+angle. Right: full force breakdown — sail drive and leeward push (blue/purple),
+centreboard lift balancing the leeward push (green), combined drag opposing
+forward motion (red).*
+
 Centreboard: $A_c = 0.125\ \text{m}^2$, $\mathrm{AR} = 6$.
 
 | $\theta$ (°) | $v$ (m/s) | $\alpha$ (°) | $u = v\cos(\theta+\alpha)$ (m/s) |

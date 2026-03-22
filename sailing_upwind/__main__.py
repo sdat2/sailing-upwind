@@ -3,12 +3,14 @@
 from pathlib import Path
 
 from .plots import plot_upwind_speed, plot_ds_sensitivity
+from .diagrams import plot_all_diagrams
 
 
 def main() -> None:
     Path("img").mkdir(exist_ok=True)
     plot_upwind_speed(show=False, save=True)
     plot_ds_sensitivity(show=False, save=True)
+    plot_all_diagrams(show=False, save=True)
 
 
 if __name__ == "__main__":

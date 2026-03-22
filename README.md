@@ -96,6 +96,14 @@ The dashed line marks the optimal angle; the dotted line the no-go threshold.*
 *Upwind speed for five sail drag coefficients.
 A lower $D_s$ (slipperier sail) pushes the optimal angle further from the wind.*
 
+### Diagrams
+
+![One-deflector geometry](img/geometry_one_deflector.svg)  ![One-deflector force diagram](img/forces_one_deflector.svg)
+
+*Left: top-down geometry at the optimal heading. Right: force diagram — propulsive
+sail force (blue) balanced by hull drag (red); the leeward push and centreboard
+reaction (grey, dashed) cancel and play no further role.*
+
 ---
 
 ## Python package
