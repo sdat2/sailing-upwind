@@ -326,9 +326,9 @@ def forces_one_deflector(
             color="grey", fontsize=7.5, ha="center", va="center",
             bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.8))
 
-    # Wind indicator — small, top-left
+    # Wind indicator — small, top-left; label below arrowhead
     _arrow(ax, -0.45, 0.38, 0, -0.14, color="#5b9bd5", hw=0.035, hl=0.045)
-    ax.text(-0.45, 0.43, "wind", color="#5b9bd5", fontsize=7.5, ha="center")
+    ax.text(-0.45, 0.18, "wind", color="#5b9bd5", fontsize=7.5, ha="center")
 
     ax.set_xlim(-0.65, 0.65)
     ax.set_ylim(-0.65, 0.65)
@@ -384,29 +384,34 @@ def forces_two_deflector(
 
     _boat_patch(ax, cx, cy, heading_rad=theta, length=0.18, beam=0.055)
 
-    # F_sail_x — forward; label to port
+    def _tip_label(dx, dy, label, color):
+        """Place label just beyond the arrowhead, minimum 0.30 from origin."""
+        ln = math.hypot(dx, dy)
+        ux, uy = (dx / ln, dy / ln) if ln > 1e-9 else (0.0, 1.0)
+        reach = max(ln + 0.08, 0.30)
+        ax.text(cx + ux * reach, cy + uy * reach, label,
+                color=color, fontsize=7.5, ha="center", va="center",
+                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.85))
+
+    # F_sail_x — forward
     d = fwd * F_sail_x * sc
-    _force_arrow(ax, cx, cy, d[0], d[1], color="steelblue",
-                 label=f"$F_{{\\rm sail,x}}$  {F_sail_x:.1f} N",
-                 side=1, label_frac=0.58, perp_dist=0.11, fontsize=7.5)
+    _arrow(ax, cx, cy, d[0], d[1], color="steelblue")
+    _tip_label(d[0], d[1], f"$F_{{\\rm sail,x}}$  {F_sail_x:.1f} N", "steelblue")
 
-    # F_sail_y — leeward; label towards leeward side
+    # F_sail_y — leeward
     d2 = lee * F_sail_y * sc
-    _force_arrow(ax, cx, cy, d2[0], d2[1], color="#9b59b6",
-                 label=f"$F_{{\\rm sail,y}}$  {F_sail_y:.1f} N",
-                 side=-1, label_frac=0.58, perp_dist=0.10, fontsize=7.5)
+    _arrow(ax, cx, cy, d2[0], d2[1], color="#9b59b6")
+    _tip_label(d2[0], d2[1], f"$F_{{\\rm sail,y}}$  {F_sail_y:.1f} N", "#9b59b6")
 
-    # F_cb_lift — windward; label towards windward side
+    # F_cb_lift — windward
     d3 = -lee * F_cb_lift * sc
-    _force_arrow(ax, cx, cy, d3[0], d3[1], color="seagreen",
-                 label=f"$F_{{\\rm cb,lift}}$  {F_cb_lift:.1f} N",
-                 side=1, label_frac=0.58, perp_dist=0.10, fontsize=7.5)
+    _arrow(ax, cx, cy, d3[0], d3[1], color="seagreen")
+    _tip_label(d3[0], d3[1], f"$F_{{\\rm cb,lift}}$  {F_cb_lift:.1f} N", "seagreen")
 
-    # Combined aft drag — label to starboard (opposite side from F_sail_x)
+    # Combined aft drag
     d4 = -fwd * (F_hull + F_cb_drag) * sc
-    _force_arrow(ax, cx, cy, d4[0], d4[1], color="#e74c3c",
-                 label=f"$F_{{\\rm hull}}+F_{{\\rm cb,drag}}$  {F_hull+F_cb_drag:.1f} N",
-                 side=-1, label_frac=0.58, perp_dist=0.13, fontsize=7.5)
+    _arrow(ax, cx, cy, d4[0], d4[1], color="#e74c3c")
+    _tip_label(d4[0], d4[1], f"$F_{{\\rm hull}}+F_{{\\rm cb,drag}}$  {F_hull+F_cb_drag:.1f} N", "#e74c3c")
 
     # Leeway arc
     _angle_arc(ax, cx, cy, 0.25,
@@ -415,9 +420,9 @@ def forces_two_deflector(
                color="seagreen", label=f"$\\alpha={math.degrees(alpha):.1f}°$",
                fontsize=8, r_label_frac=1.55)
 
-    # Wind indicator
+    # Wind indicator; label below arrowhead
     _arrow(ax, -0.45, 0.38, 0, -0.14, color="#5b9bd5", hw=0.035, hl=0.045)
-    ax.text(-0.45, 0.43, "wind", color="#5b9bd5", fontsize=7.5, ha="center")
+    ax.text(-0.45, 0.18, "wind", color="#5b9bd5", fontsize=7.5, ha="center")
 
     ax.set_xlim(-0.65, 0.65)
     ax.set_ylim(-0.65, 0.65)

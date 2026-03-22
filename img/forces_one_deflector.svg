@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-03-22T08:04:45.301472</dc:date>
+    <dc:date>2026-03-22T08:17:01.356569</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -34,7 +34,7 @@ z
 L 102.765899 124.246146 
 L 97.88935 116.785472 
 z
-" clip-path="url(#pf31131e75e)" style="fill: #696969; opacity: 0.7; stroke: #696969; stroke-linejoin: miter"/>
+" clip-path="url(#pf4ee043d40)" style="fill: #696969; opacity: 0.7; stroke: #696969; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 114.209496 111.442146 
@@ -749,7 +749,7 @@ L 39.261077 69.724384
    </g>
    <g id="text_5">
     <!-- wind -->
-    <g style="fill: #5b9bd5" transform="translate(30.745257 42.852185) scale(0.075 -0.075)">
+    <g style="fill: #5b9bd5" transform="translate(30.745257 83.366031) scale(0.075 -0.075)">
      <defs>
       <path id="DejaVuSans-77" d="M 269 3500 
 L 844 3500 
@@ -779,12 +779,12 @@ z
 L 102.765899 124.246146 
 L 97.88935 116.785472 
 L 124.744375 104.556191 
-" clip-path="url(#pf31131e75e)" style="fill: none; stroke: #696969; stroke-linecap: square"/>
+" clip-path="url(#pf4ee043d40)" style="fill: none; stroke: #696969; stroke-linecap: square"/>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pf31131e75e">
+  <clipPath id="pf4ee043d40">
    <rect x="7.2" y="7.2" width="210.672" height="210.672"/>
   </clipPath>
  </defs>
