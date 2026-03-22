@@ -15,8 +15,7 @@ For most dinghies, the region within about 45° of the wind is called the
 **no-go zone** — the sail just flaps and generates no drive.
 
 Yet if the destination is dead upwind the boat can still reach it by
-**tacking** — zig-zagging on alternating close-hauled legs, like a car
-reversing into a tight parking space.
+**tacking** — zig-zagging on alternating close-hauled legs.
 The question is how wide to make the zig-zags.
 
 Sail too close to the wind ($\theta$ small) and the boat barely moves.
