@@ -67,3 +67,18 @@ def _validate(cfg: dict[str, Any]) -> None:
         raise ValueError("boat.sail_area_m2 must be positive")
     if cfg["boat"]["hull_area_m2"] <= 0:
         raise ValueError("boat.hull_area_m2 must be positive")
+
+    model_cfg = cfg.get("model", {})
+    mode = model_cfg.get("mode", "one_deflector")
+    if mode not in ("one_deflector", "two_deflector"):
+        raise ValueError(
+            f"model.mode must be 'one_deflector' or 'two_deflector', got '{mode}'"
+        )
+    if mode == "two_deflector":
+        cb = model_cfg.get("centreboard", {})
+        if "area_m2" not in cb:
+            raise ValueError(
+                "model.centreboard.area_m2 is required when model.mode = 'two_deflector'"
+            )
+        if cb["area_m2"] <= 0:
+            raise ValueError("model.centreboard.area_m2 must be positive")

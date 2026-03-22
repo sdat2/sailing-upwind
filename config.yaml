@@ -32,3 +32,11 @@ plot:
   theta_max_deg: 180.0    # end angle for sweep plot (degrees from wind)
   n_points: 500           # resolution of sweep
   output_file: "img/upwind_speed.png"
+
+model:
+  # "one_deflector" — original model (infinite lateral resistance, closed-form)
+  # "two_deflector" — extended model with finite centreboard area and leeway
+  mode: "one_deflector"
+  centreboard:            # only used when mode = "two_deflector"
+    area_m2: 0.125        # planform area of centreboard (m^2)
+    aspect_ratio: 6.0     # span^2 / area
