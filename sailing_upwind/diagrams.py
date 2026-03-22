@@ -298,33 +298,33 @@ def forces_one_deflector(
 
     _boat_patch(ax, cx, cy, heading_rad=theta, length=0.18, beam=0.055)
 
-    # F_sail_x — forward; label to port side (side=+1, left of arrow direction)
+    def _tip_label(dx, dy, label, color):
+        ln = math.hypot(dx, dy)
+        ux, uy = (dx / ln, dy / ln) if ln > 1e-9 else (0.0, 1.0)
+        reach = max(ln + 0.08, 0.30)
+        ax.text(cx + ux * reach, cy + uy * reach, label,
+                color=color, fontsize=8, ha="center", va="center",
+                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.85))
+
+    # F_sail_x — forward
     d = fwd * F_sail_x * sc
-    _force_arrow(ax, cx, cy, d[0], d[1], color="steelblue",
-                 label=f"$F_{{\\rm sail,x}}$  {F_sail_x:.1f} N",
-                 side=1, label_frac=0.58, perp_dist=0.11, fontsize=8)
+    _arrow(ax, cx, cy, d[0], d[1], color="steelblue")
+    _tip_label(d[0], d[1], f"$F_{{\\rm sail,x}}$  {F_sail_x:.1f} N", "steelblue")
 
-    # F_hull — aft; label to starboard side so it doesn't overlap F_sail_x label
+    # F_hull — aft
     d2 = -fwd * F_hull * sc
-    _force_arrow(ax, cx, cy, d2[0], d2[1], color="#e74c3c",
-                 label=f"$F_{{\\rm hull}}$  {F_hull:.1f} N",
-                 side=-1, label_frac=0.58, perp_dist=0.11, fontsize=8)
+    _arrow(ax, cx, cy, d2[0], d2[1], color="#e74c3c")
+    _tip_label(d2[0], d2[1], f"$F_{{\\rm hull}}$  {F_hull:.1f} N", "#e74c3c")
 
-    # F_sail_y — leeward (dashed, cancelled); label at tip offset
+    # F_sail_y — leeward (dashed, cancelled)
     d3 = lee * F_sail_y * sc
     _dashed_arrow(ax, cx, cy, d3[0], d3[1], color="grey")
-    ax.text(cx + d3[0] + lee[0] * 0.13, cy + d3[1] + lee[1] * 0.13,
-            f"$F_{{\\rm sail,y}}$  {F_sail_y:.1f} N\n(cancelled)",
-            color="grey", fontsize=7.5, ha="center", va="center",
-            bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.8))
+    _tip_label(d3[0], d3[1], f"$F_{{\\rm sail,y}}$  {F_sail_y:.1f} N\n(cancelled)", "grey")
 
     # Centreboard reaction — windward (dashed)
     d4 = -lee * F_sail_y * sc
     _dashed_arrow(ax, cx, cy, d4[0], d4[1], color="grey")
-    ax.text(cx + d4[0] - lee[0] * 0.13, cy + d4[1] - lee[1] * 0.13,
-            f"$F_{{\\rm cb}}$  {F_sail_y:.1f} N\n(reaction)",
-            color="grey", fontsize=7.5, ha="center", va="center",
-            bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.8))
+    _tip_label(d4[0], d4[1], f"$F_{{\\rm cb}}$  {F_sail_y:.1f} N\n(reaction)", "grey")
 
     # Wind indicator — small, top-left; label below arrowhead
     _arrow(ax, -0.45, 0.38, 0, -0.14, color="#5b9bd5", hw=0.035, hl=0.045)
