@@ -110,7 +110,8 @@ reaction (grey, dashed) cancel and play no further role.*
 
 The full source is on [GitHub](https://github.com/sdat2/sailing-upwind).
 All parameters live in [`config.yaml`](config.yaml).
-Change any value and re-run to see the effect immediately.
+Configuration is managed by [Hydra](https://hydra.cc) — any value can be overridden
+on the command line without editing the file.
 
 | Key | Meaning | Default |
 |-----|---------|---------|
@@ -119,26 +120,54 @@ Change any value and re-run to see the effect immediately.
 | `coefficients.D_h` | Hull drag coefficient | 0.9 |
 | `boat.sail_area_m2` | Sail area (m²) | 5.1 |
 | `boat.hull_area_m2` | Frontal underwater area (m²) | 0.0343 |
+| `model.mode` | `"one_deflector"` or `"two_deflector"` | `"one_deflector"` |
+| `model.centreboard.area_m2` | Centreboard planform area (m²) | 0.125 |
+| `model.centreboard.aspect_ratio` | Centreboard AR = span²/area | 6.0 |
 
 ```bash
 pip install -e ".[dev]"
-python -m sailing_upwind   # generates img/upwind_speed.png + img/ds_sensitivity.png
-pytest                     # 32 tests, including doctests
+
+# Generate all plots and diagrams with default parameters
+python -m sailing_upwind
+
+# Override any parameter on the command line (Hydra syntax)
+python -m sailing_upwind wind.speed_ms=7
+python -m sailing_upwind model.mode=two_deflector
+python -m sailing_upwind model.centreboard.area_m2=0.20 model.centreboard.aspect_ratio=8
+
+pytest   # 34 tests, including doctests
 ```
+
+This produces six output figures in `img/`:
+
+| File | Content |
+|------|---------|
+| `upwind_speed.png` | Boat speed and upwind component vs heading (one-deflector) |
+| `ds_sensitivity.png` | Upwind speed sensitivity to sail drag coefficient |
+| `two_deflector_speed.png` | Speed curve for the two-deflector model with leeway |
+| `centreboard_sensitivity.png` | Upwind speed vs centreboard aspect ratio |
+| `geometry_one_deflector.svg` | Top-down geometry diagram (one-deflector) |
+| `geometry_two_deflector.svg` | Top-down geometry with heading vs track (two-deflector) |
+| `forces_one_deflector.svg` | Force diagram (one-deflector) |
+| `forces_two_deflector.svg` | Force diagram (two-deflector) |
 
 **Repository layout**
 
 ```
-config.yaml              ← all tuneable parameters
+config.yaml                    ← all tuneable parameters (Hydra config)
 sailing_upwind/
-  model.py               ← core physics (boat_speed, upwind_speed, optimal_angle)
-  config.py              ← YAML loader + validation
-  plots.py               ← matplotlib figures
+  model.py                     ← core physics (boat_speed, upwind_speed, optimal_angle)
+  two_deflector.py             ← two-deflector model with finite centreboard
+  config.py                    ← YAML loader + validation
+  plots.py                     ← matplotlib figures (one- and two-deflector)
+  diagrams.py                  ← geometry and force diagrams (SVG)
+  __main__.py                  ← CLI entry point (@hydra.main)
 tests/
-  test_model.py          ← unit tests + physics sanity checks
-  test_config.py         ← config validation tests
-.github/workflows/ci.yml 
-.github/workflows/pages.yml 
+  test_model.py                ← unit tests + physics sanity checks
+  test_config.py               ← config validation tests
+two-def.md                     ← two-deflector model derivation and results
+.github/workflows/ci.yml
+.github/workflows/pages.yml
 ```
 
 ---
