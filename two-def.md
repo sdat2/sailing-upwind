@@ -83,6 +83,17 @@ angle. Right: full force breakdown — sail drive and leeward push (blue/purple)
 centreboard lift balancing the leeward push (green), combined drag opposing
 forward motion (red).*
 
+![Two-deflector speed curve](img/two_deflector_speed.png)
+
+*Boat speed and upwind component vs heading. The annotation shows the maximum
+upwind speed, the corresponding optimal heading, and the leeway angle at that point.*
+
+![Centreboard aspect-ratio sensitivity](img/centreboard_sensitivity.png)
+
+*Upwind component vs heading for centreboard aspect ratios AR ∈ {3, 4, 6, 8, 12}
+(centreboard area $A_c = 0.125$ m² fixed). Higher AR → less induced drag → slightly
+higher upwind speed and marginally narrower optimal heading.*
+
 Centreboard: $A_c = 0.125\ \text{m}^2$, $\mathrm{AR} = 6$.
 
 | $\theta$ (°) | $v$ (m/s) | $\alpha$ (°) | $u = v\cos(\theta+\alpha)$ (m/s) |
@@ -142,6 +153,29 @@ boat with a poor centreboard should bear away slightly.
 
 The model lives in
 [`sailing_upwind/two_deflector.py`](sailing_upwind/two_deflector.py).
+
+To run the full model and regenerate all plots and diagrams, use the CLI
+(config is managed by [Hydra](https://hydra.cc) — any config key can be
+overridden on the command line):
+
+```bash
+# Default Laser Pico parameters
+python -m sailing_upwind
+
+# Try a stronger wind
+python -m sailing_upwind wind.speed_ms=7
+
+# Larger centreboard with higher aspect ratio
+python -m sailing_upwind model.centreboard.area_m2=0.20 model.centreboard.aspect_ratio=8
+```
+
+To use the two-deflector model for the main upwind-speed plot:
+
+```bash
+python -m sailing_upwind model.mode=two_deflector
+```
+
+Or call the Python API directly:
 
 ```python
 from sailing_upwind.two_deflector import TwoDeflectorParams, optimal_angle

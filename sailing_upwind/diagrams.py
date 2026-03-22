@@ -442,6 +442,7 @@ def forces_two_deflector(
 
 def plot_all_diagrams(
     config_path=None,
+    cfg=None,
     show: bool = True,
     save: bool = False,
 ) -> None:
@@ -454,7 +455,9 @@ def plot_all_diagrams(
     from .model import optimal_angle as opt1, boat_speed
     from .two_deflector import TwoDeflectorParams, optimal_angle as opt2
 
-    cfg = load_config(config_path)
+    if cfg is None:
+        cfg = load_config(config_path)
+
     v_s   = cfg["wind"]["speed_ms"]
     a_s   = cfg["boat"]["sail_area_m2"]
     A_h   = cfg["boat"]["hull_area_m2"]
