@@ -37,8 +37,7 @@ The story is wrong. Sail aerodynamics is turbulent, high-Reynolds-number flow
 where boundary layers separate at the leading edge.
 "Lift equals low pressure" describes the outcome; it doesn't explain the mechanism.
 
-This model uses only **Newton's three laws** and treats the sail as a momentum
-deflector — enough to derive the optimum angle precisely, requiring nothing beyond
+This model uses only simple force diagrams — enough to derive the optimum angle approximately, requiring nothing beyond
 a high school physics and maths (this model was my IB Maths coursework in 2014).
 
 ---

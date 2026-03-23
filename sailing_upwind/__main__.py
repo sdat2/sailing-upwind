@@ -8,10 +8,8 @@ Configuration is managed by Hydra. Override any value from the command line, e.g
 """
 
 from pathlib import Path
-
 import hydra
 from omegaconf import DictConfig, OmegaConf
-
 from .plots import (
     plot_upwind_speed,
     plot_ds_sensitivity,

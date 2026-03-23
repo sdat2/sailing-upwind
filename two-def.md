@@ -27,35 +27,138 @@ The boat's actual track over water is $\theta + \alpha$ from the wind.
 
 ## Forces
 
-### Sail (momentum deflector — unchanged)
+The sail and hull drag follow the same momentum-flux framework as the
+[base model](README.md#appendix-full-derivation), but now we track *both*
+components of the sail force. The centreboard operates in a regime where
+the momentum-flux model fails, so it is treated as a finite lifting surface
+instead.
 
-The sail presents area $a_s |\sin\theta|$ to the wind. Decomposing the full
-2-D momentum-flux change gives both components:
+### Step 1 — Sail: how much air is intercepted?
 
-$$F_{\text{sail},x'} = \rho_a \, a_s \, v_s^2 \, |\sin\theta|(D_s - \cos\theta)$$
+The sail presents projected area $a_s|\sin\theta|$ to the wind (zero
+head-to-wind, full area beam-reaching). In one second a column of air of
+length $v_s$ sweeps past this cross-section, delivering mass flux:
 
-$$F_{\text{sail},y'} = \rho_a \, a_s \, v_s^2 \, \sin^2\theta \qquad \text{(leeward push)}$$
+$$\dot{m} = \rho_a \, a_s \, v_s \, |\sin\theta|$$
 
-The $y'$ component is what the base model discards by assuming infinite
-lateral resistance.
+This is identical to the base model; the derivation is in
+[Step 1 of the base-model appendix](README.md#step-1--how-much-air-does-the-sail-intercept).
 
-### Centreboard (lifting surface)
+### Step 2 — Sail: forward force ($x'$ component)
 
-Applying the pure deflector equation to the centreboard fails: it predicts
-no side-force until the leeway exceeds $\arccos(D_c) \approx 12°$, far more
-than real boats experience. A centreboard is an efficient low-drag foil that
-generates lift linearly with angle of attack — thin-flat-plate theory gives:
+Define unit vectors in the boat's frame. The wind velocity in world
+coordinates is $(0,-v_s)$. The forward unit vector is
+$\hat{x}' = (\sin\theta,\cos\theta)$.
 
-$$C_L = 2\pi\sin\alpha \approx 2\pi\alpha, \qquad C_D = \frac{C_L^2}{\pi \cdot \mathrm{AR}}$$
+**Incoming:** the component of wind velocity along $\hat{x}'$:
 
-where $\mathrm{AR} = \text{span}^2 / A_c$ is the aspect ratio ($\mathrm{AR} \approx 6$ for a dinghy centreboard).
-The dynamic pressure of the sideways water flow is $\tfrac{1}{2}\rho_w A_c v^2$, giving:
+$$v_\text{in,fwd} = (0,-v_s)\cdot(\sin\theta,\cos\theta) = -v_s\cos\theta$$
 
-$$F_{\text{cb},y'} = \tfrac{1}{2}\rho_w A_c \cdot 2\pi\sin\alpha \cdot v^2 \qquad \text{(windward restoring force)}$$
+(negative: the wind opposes the heading for $\theta < 90°$).
 
-$$F_{\text{cb},x'} = -\tfrac{1}{2}\rho_w A_c \cdot \frac{(2\pi\sin\alpha)^2}{\pi \cdot \mathrm{AR}} \cdot v^2 \qquad \text{(induced drag)}$$
+**Outgoing:** the sail deflects the air to leave along $+\hat{x}'$ at speed
+$D_s v_s$, so $v_\text{out,fwd} = +D_s v_s$.
 
-### Hull drag (unchanged)
+Applying the no-go-zone constraint (see
+[base model Step 2](README.md#step-2--force-from-the-sail-decomposing-momentum-change)
+for the full argument), the net forward drive is:
+
+$$\boxed{F_{\text{sail},x'} = \rho_a \, a_s \, v_s^2 \, |\sin\theta|(D_s - \cos\theta)}$$
+
+Positive only for $\theta > \arccos D_s \approx 26.5°$.
+
+### Step 3 — Sail: leeward force ($y'$ component)
+
+The leeward unit vector in world coordinates is
+$\hat{y}' = (\cos\theta,-\sin\theta)$ (90° clockwise from $\hat{x}'$).
+
+**Incoming:** the component of wind velocity along $\hat{y}'$:
+
+$$v_\text{in,lwd} = (0,-v_s)\cdot(\cos\theta,-\sin\theta) = +v_s\sin\theta$$
+
+(positive: the beam component of the wind pushes the boat to leeward).
+
+**Outgoing:** after the sail the air exits axially (along $\hat{x}'$), so it
+carries zero leeward velocity: $v_\text{out,lwd} = 0$.
+
+The air has shed leeward momentum $\dot{m}\,v_s\sin\theta$; by Newton's third
+law the boat gains it:
+
+$$\boxed{F_{\text{sail},y'} = \rho_a \, a_s \, v_s^2 \, \sin^2\!\theta \qquad \text{(leeward)}}$$
+
+This is the term the base model discards by assuming infinite lateral
+resistance.
+
+### Step 4 — Why the centreboard needs aerofoil theory
+
+We could apply the same momentum-flux formula to the centreboard, treating it
+as a deflector that redirects the sideways water flow. The result would mirror
+the sail's no-go zone: no side-force until the leeway exceeds
+$\arccos(D_c) \approx 12°$. But real dinghies make leeway of 1–3°, far below
+that threshold.
+
+The reason is that a centreboard is an efficient *lifting surface*. Its thin
+profile generates circulation via the Kutta condition (the flow leaves the
+trailing edge smoothly), producing a side-force — *lift* — that grows linearly
+with angle of attack for small angles. This is the domain of **thin aerofoil
+theory** (Glauert 1926), applicable when:
+
+- The foil is thin relative to its chord ($t/c \lesssim 0.12$ for a dinghy
+  board).
+- The angle of attack is well below stall ($\alpha \lesssim 10°$; typical
+  sailing leeway is 1–3°).
+- The flow is approximately inviscid away from the boundary layer: at
+  $v = 2$ m/s and chord $c \approx 0.3$ m the chord Reynolds number is
+  $Re \approx 6\times10^5$, in the turbulent-attached regime where inviscid
+  potential-flow theory is a good approximation.
+
+### Step 5 — Centreboard lift
+
+Due to leeway $\alpha$ the water approaches the centreboard at angle of attack
+$\alpha$ to its chord line. The dynamic pressure is $q = \tfrac{1}{2}\rho_w v^2$.
+
+Thin aerofoil theory for an infinite (2D) flat plate gives (Glauert 1926;
+Anderson 2017 §4.7):
+
+$$C_L = 2\pi\sin\alpha \approx 2\pi\alpha$$
+
+The approximation holds well for $\alpha < 5°$. The resulting windward
+restoring force is:
+
+$$\boxed{F_{\text{cb},y'} = q\,A_c\,C_L = \pi\rho_w A_c \sin\alpha \cdot v^2 \qquad \text{(windward)}}$$
+
+**Dimensional check:**  
+$[\pi\rho_w A_c \sin\alpha \cdot v^2]
+= \text{(kg\,m}^{-3}\text{)(m}^2\text{)(m}^2\text{s}^{-2}\text{)}
+= \text{N}\checkmark$
+
+### Step 6 — Centreboard induced drag
+
+A centreboard has finite span $b$ and aspect ratio $\mathrm{AR} = b^2/A_c$
+(typically $\approx 6$). Prandtl's lifting-line theory (Prandtl 1918; Anderson
+2017 §5.3) shows that any finite wing generating lift must also generate
+*induced drag* — a drag penalty caused by trailing vortices that tilt the
+local lift vector aft. For an elliptical lift distribution (Oswald efficiency
+$e = 1$, a good approximation for a tapered board):
+
+$$C_{D,i} = \frac{C_L^2}{\pi \cdot \mathrm{AR}}$$
+
+Substituting $C_L = 2\pi\sin\alpha$:
+
+$$C_{D,i} = \frac{(2\pi\sin\alpha)^2}{\pi \cdot \mathrm{AR}} = \frac{4\pi\sin^2\!\alpha}{\mathrm{AR}}$$
+
+This induced drag opposes forward motion ($-x'$ direction):
+
+$$\boxed{F_{\text{cb},x'} = -q\,A_c\,C_{D,i} = -\frac{2\pi\rho_w A_c \sin^2\!\alpha}{\mathrm{AR}}\,v^2}$$
+
+For $\mathrm{AR} = 6$ and $\alpha = 2°$ at $v = 2.5$ m/s this is roughly
+$0.05$ N — a small but real drag penalty that reduces upwind speed slightly
+below the one-deflector prediction.
+
+### Step 7 — Hull drag
+
+Unchanged from the base model
+(see [base model Step 3](README.md#step-3--hull-drag)):
 
 $$F_{\text{hull}} = -(1-D_h)\,\rho_w\,A_h\,v^2$$
 
@@ -63,14 +166,47 @@ $$F_{\text{hull}} = -(1-D_h)\,\rho_w\,A_h\,v^2$$
 
 ## Equilibrium
 
-Setting net forward and lateral forces to zero:
+Setting net forward and leeward forces to zero simultaneously gives two
+equations in the unknowns $(v, \alpha)$ for each heading $\theta$.
 
-$$\underbrace{\rho_a a_s v_s^2 \sin\theta(D_s-\cos\theta)}_{\text{sail drive}} - \underbrace{\frac{2\pi^2 \rho_w A_c \sin^2\!\alpha}{\mathrm{AR}}\,v^2}_{\text{CB induced drag}} = \underbrace{(1-D_h)\rho_w A_h v^2}_{\text{hull drag}} \tag{1}$$
+**Forward balance** (Steps 2, 6, 7):
+
+$$\underbrace{\rho_a a_s v_s^2 \sin\theta(D_s-\cos\theta)}_{\text{sail drive}} = \underbrace{\frac{2\pi\rho_w A_c \sin^2\!\alpha}{\mathrm{AR}}\,v^2}_{\text{CB induced drag}} + \underbrace{(1-D_h)\rho_w A_h v^2}_{\text{hull drag}} \tag{1}$$
+
+**Leeward balance** (Steps 3, 5):
 
 $$\underbrace{\rho_a a_s v_s^2 \sin^2\!\theta}_{\text{sail side-force}} = \underbrace{\pi \rho_w A_c \sin\alpha \cdot v^2}_{\text{CB lift}} \tag{2}$$
 
-Two equations in two unknowns $(v, \alpha)$ — solved numerically for each
-heading $\theta$.
+(Hull side-drag is small compared with centreboard side-force and is ignored.)
+
+**Eliminating $v^2$.** Solve equation (2) for $v^2$:
+
+$$v^2 = \frac{\rho_a a_s v_s^2 \sin^2\!\theta}{\pi\rho_w A_c \sin\alpha} \tag{$2'$}$$
+
+Substitute into equation (1) and divide through by $\rho_a a_s v_s^2$:
+
+$$\pi A_c (D_s - \cos\theta)\sin\alpha = \sin\theta\!\left[\frac{2\pi A_c \sin^2\!\alpha}{\mathrm{AR}} + (1-D_h)A_h\right] \tag{3}$$
+
+This single transcendental equation in $\alpha$ can be solved for any $\theta$.
+
+**Small-leeway approximation.** For $\alpha \ll 1$ the quadratic term
+$\sin^2\!\alpha \approx 0$ and equation (3) linearises to:
+
+$$\alpha \approx \frac{(1-D_h)\,A_h\,\sin\theta}{\pi A_c (D_s - \cos\theta)} \tag{4}$$
+
+For the Laser Pico at $\theta = 57°$:
+
+$$\alpha \approx \frac{0.1\times0.0343\times\sin 57°}{\pi\times0.125\times(0.895-\cos 57°)} \approx 1.2°$$
+
+matching the full numerical result — confirming that induced drag is negligible
+at these small leeway angles, and that a larger centreboard area $A_c$ directly
+reduces leeway (equation 4 shows $\alpha \propto 1/A_c$).
+
+Once $\alpha$ is found from equation (3), $v$ follows from equation ($2'$).
+
+**Limiting case: infinite centreboard.** As $A_c \to \infty$, equation (2)
+forces $\sin\alpha \to 0$ and the induced-drag term in equation (1) vanishes,
+recovering the one-deflector speed formula exactly.
 
 ---
 
@@ -194,3 +330,28 @@ p = TwoDeflectorParams(
 
 theta_opt, v_opt, alpha_opt = optimal_angle(p)
 ```
+
+---
+
+## References
+
+- Glauert, H. (1926). *The Elements of Aerofoil and Airscrew Theory*.
+  Cambridge University Press.
+  *(Classic derivation of $C_L = 2\pi\alpha$ for a thin flat plate using
+  potential flow theory; the essential reference for Step 5 above.)*
+
+- Prandtl, L. (1918). Tragflügeltheorie I & II. *Nachrichten von der
+  Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische
+  Klasse*, 451–477 and 107–137.
+  *(Original lifting-line theory giving $C_{D,i} = C_L^2/(\pi\,\mathrm{AR})$;
+  available in English translation as NACA Technical Report No. 116, 1921.)*
+
+- Anderson, J. D. (2017). *Fundamentals of Aerodynamics* (6th ed.).
+  McGraw-Hill. §§4.7, 5.3.
+  *(Accessible textbook treatment of thin aerofoil theory and Prandtl's
+  lifting-line theory with worked examples.)*
+
+- Wolfe, J. (2002). The physics of sailing.
+  University of New South Wales.
+  [Link](https://newt.phys.unsw.edu.au/~jw/sailing.html)
+  *(Momentum-flux treatment of the sail force that underpins both models.)*
