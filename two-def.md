@@ -89,28 +89,63 @@ $$\boxed{F_{\text{sail},y'} = \rho_a \, a_s \, v_s^2 \, \sin^2\!\theta \qquad \t
 This is the term the base model discards by assuming infinite lateral
 resistance.
 
-### Step 4 — Why the centreboard needs aerofoil theory
+### Step 4 — Why the momentum-flux model fails for the centreboard
 
-We could apply the same momentum-flux formula to the centreboard, treating it
-as a deflector that redirects the sideways water flow. The result would mirror
-the sail's no-go zone: no side-force until the leeway exceeds
-$\arccos(D_c) \approx 12°$. But real dinghies make leeway of 1–3°, far below
-that threshold.
+**Applying the deflector formula directly.** We could attempt to treat the
+centreboard as a deflector of the sideways water flow, exactly as the sail
+deflects air. The water approaches the centreboard at leeway angle $\alpha$ to
+the board's chord. Substituting $\alpha$ for $\theta$ and a centreboard
+momentum-retention coefficient $D_c$ for $D_s$ in the sail formula gives:
 
-The reason is that a centreboard is an efficient *lifting surface*. Its thin
-profile generates circulation via the Kutta condition (the flow leaves the
-trailing edge smoothly), producing a side-force — *lift* — that grows linearly
-with angle of attack for small angles. This is the domain of **thin aerofoil
-theory** (Glauert 1926), applicable when:
+$$F_\text{cb,windward}^\text{deflector} = \rho_w \, A_c \, v^2 \, |\sin\alpha|(D_c - \cos\alpha)$$
 
-- The foil is thin relative to its chord ($t/c \lesssim 0.12$ for a dinghy
-  board).
-- The angle of attack is well below stall ($\alpha \lesssim 10°$; typical
-  sailing leeway is 1–3°).
-- The flow is approximately inviscid away from the boundary layer: at
-  $v = 2$ m/s and chord $c \approx 0.3$ m the chord Reynolds number is
-  $Re \approx 6\times10^5$, in the turbulent-attached regime where inviscid
-  potential-flow theory is a good approximation.
+For this to be positive (a windward restoring force) we need $D_c > \cos\alpha$,
+i.e.:
+
+$$\alpha > \arccos(D_c)$$
+
+A well-made centreboard has $D_c \approx 0.98$ (only 2 % of the water's
+momentum absorbed by friction), giving $\arccos(0.98) \approx 11.5°$.
+
+At realistic leeway angles of 1–3°, $\cos\alpha \approx 0.9998 > D_c$, so
+$D_c - \cos\alpha < 0$: the formula predicts a **leeward** push — the
+centreboard makes the drift *worse* rather than better. The momentum-flux model
+does not merely underestimate the side-force; it gets the sign wrong at every
+angle a real boat actually sails.
+
+**Why the deflector model gets the physics wrong.** The sail acts as a deflector
+because it genuinely redirects a column of air through a large angle (30°–70°):
+the incoming air has a substantial component perpendicular to the exit direction,
+and the momentum change is the dominant source of force. Pressure differences play
+a secondary role.
+
+A centreboard at 1–3° leeway is in a completely different regime. At $\alpha = 2°$
+only $\sin 2° \approx 3.5\%$ of the water velocity is directed toward the board's
+face; the remaining 99.4% flows *along* the chord. The board does not meaningfully
+redirect this flow. Instead, the streamlined profile shifts the stagnation point
+slightly, causing the flow to accelerate on the suction face and decelerate on the
+pressure face. By the **Kutta–Joukowski theorem**, this pressure difference generates
+a force *perpendicular to the flow* even though the flow is barely deflected at all.
+The mechanism is circulation, not momentum redirection.
+
+**Summary of the two regimes:**
+
+| | Deflector (sail) | Lifting surface (centreboard) |
+|---|---|---|
+| Physical mechanism | momentum redirection | circulation / pressure difference |
+| Side-force scales as | $\sin\theta\,(D - \cos\theta)$ | $\sin\alpha \approx \alpha$ |
+| No-force zone | $\theta < \arccos D_s \approx 26°$ | none for $\alpha > 0$ |
+| Reliable range | large angles (30°–70°) | small angles ($\lesssim 10°$) |
+
+Thin aerofoil theory captures the circulation mechanism analytically and is valid
+when:
+
+- The foil is thin relative to its chord ($t/c \lesssim 0.12$ for a dinghy board).
+- The angle of attack is well below stall ($\alpha \lesssim 10°$; typical leeway
+  is 1–3°).
+- The flow is approximately inviscid away from the boundary layer: at $v = 2$ m/s
+  and chord $c \approx 0.3$ m the chord Reynolds number is $Re \approx 6\times10^5$,
+  well into the turbulent-attached regime where potential-flow theory is accurate.
 
 ### Step 5 — Centreboard lift
 
@@ -130,7 +165,7 @@ $$\boxed{F_{\text{cb},y'} = q\,A_c\,C_L = \pi\rho_w A_c \sin\alpha \cdot v^2 \qq
 **Dimensional check:**  
 $[\pi\rho_w A_c \sin\alpha \cdot v^2]
 = \text{(kg\,m}^{-3}\text{)(m}^2\text{)(m}^2\text{s}^{-2}\text{)}
-= \text{N}\checkmark$
+= \text{N}$
 
 ### Step 6 — Centreboard induced drag
 
