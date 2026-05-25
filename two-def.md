@@ -323,7 +323,7 @@ boat with a poor centreboard should bear away slightly.
 ## Code
 
 The model lives in
-[`sailing_upwind/two_deflector.py`](sailing_upwind/two_deflector.py).
+[`sailing_upwind/two_deflector.py`](https://github.com/sdat2/sailing-upwind/blob/main/sailing_upwind/two_deflector.py).
 
 To run the full model and regenerate all plots and diagrams, use the CLI
 (config is managed by [Hydra](https://hydra.cc) — any config key can be

@@ -4,6 +4,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  <style>
+    :root {
+      --font-latex-serif: "Latin Modern Roman", "CMU Serif", "Computer Modern Serif", "Times New Roman", serif;
+      --cambridge-blue: #a3c1ad;
+      --cambridge-blue-deep: #6f8f82;
+      --ink: #132838;
+      --ink-soft: #345469;
+      --panel: rgba(255, 255, 255, 0.9);
+      --line: #d4e2dd;
+      --shadow: 0 14px 32px rgba(14, 39, 56, 0.12);
+    }
+
+    body {
+      font-family: var(--font-latex-serif);
+      line-height: 1.66;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(163, 193, 173, 0.26), transparent 36%),
+        radial-gradient(circle at 100% 20%, rgba(250, 200, 98, 0.16), transparent 34%),
+        linear-gradient(180deg, #f3f8f5, #fffaf2);
+    }
+
+    .site-header {
+      border-top: 0;
+      border-bottom: 1px solid rgba(18, 36, 50, 0.1);
+      background: rgba(247, 252, 248, 0.82);
+    }
+
+    .site-header .wrapper,
+    .page-content .wrapper,
+    .site-footer .wrapper {
+      max-width: min(960px, calc(100% - 2.2rem));
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .site-title,
+    .page-link,
+    .post-title,
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6,
+    .site-footer {
+      font-family: var(--font-latex-serif);
+      text-shadow: none;
+    }
+
+    .site-title,
+    .post-title,
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6 {
+      color: #24485a;
+    }
+
+    .site-title:hover,
+    .page-link:hover,
+    .page-link:focus {
+      color: #2f5a6a;
+    }
+
+    .page-content {
+      padding-top: 1.4rem;
+      padding-bottom: 2.2rem;
+    }
+
+    .page-content .wrapper {
+      margin: 0;
+      padding: clamp(1rem, 2vw, 2rem);
+      background: var(--panel);
+      border: 1px solid rgba(42, 74, 64, 0.11);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .page-content .wrapper > .post {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .post-content p,
+    .post-content li,
+    .post-content td,
+    .post-content th {
+      font-size: 1.03rem;
+    }
+
+    .post-content a,
+    .site-footer a {
+      color: #3b6e82;
+    }
+
+    .post-content a:hover,
+    .post-content a:focus,
+    .site-footer a:hover,
+    .site-footer a:focus {
+      color: #2f5a6a;
+    }
+
+    .post-content table th {
+      background: rgba(163, 193, 173, 0.24);
+    }
+
+    .post-content img {
+      border-radius: 10px;
+      border: 1px solid rgba(42, 74, 64, 0.13);
+    }
+
+    .site-footer {
+      color: var(--ink-soft);
+      border-top: 1px solid rgba(52, 84, 105, 0.2);
+      background: transparent;
+    }
+
+    @media (max-width: 760px) {
+      .page-content .wrapper {
+        border-radius: 14px;
+        padding: 1rem;
+      }
+
+      .post-content p,
+      .post-content li,
+      .post-content td,
+      .post-content th {
+        font-size: 1rem;
+      }
+    }
+  </style>
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
     {%- include google-analytics.html -%}

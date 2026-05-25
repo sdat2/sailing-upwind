@@ -107,7 +107,7 @@ reaction (grey, dashed) cancel and play no further role.*
 ## Python package
 
 The full source is on [GitHub](https://github.com/sdat2/sailing-upwind).
-All parameters live in [`config.yaml`](config.yaml).
+All parameters live in [`config.yaml`](https://github.com/sdat2/sailing-upwind/blob/main/config.yaml).
 Configuration is managed by [Hydra](https://hydra.cc) — any value can be overridden
 on the command line without editing the file.
 
